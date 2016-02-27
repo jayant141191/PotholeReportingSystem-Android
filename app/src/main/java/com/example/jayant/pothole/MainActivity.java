@@ -1,49 +1,68 @@
 package com.example.jayant.pothole;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
-import android.graphics.drawable.BitmapDrawable;
-import android.media.ExifInterface;
-import android.net.Uri;
-import android.os.AsyncTask;
+
 import android.os.Bundle;
 
-import android.os.Environment;
-import android.provider.MediaStore;
+
 import android.support.v7.app.AppCompatActivity;
-import android.util.Base64;
+
+import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Toast;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
-
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
+    EditText etEmail,etContactNo;
+    String email,contact;
+    Button btNext;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        etEmail = (EditText)findViewById(R.id.etEmail);
+        etContactNo = (EditText)findViewById(R.id.etContactNo);
+        btNext = (Button)findViewById(R.id.btNext);
+
+        btNext.setOnClickListener(this);
+
+
+    }
+
+
+
+    @Override
+    public void onClick(View v) {
+
+        email = etEmail.getText().toString();
+        contact = etContactNo.getText().toString();
+
+        //BackgroundOp backgroundOp = new BackgroundOp(this);
+        //backgroundOp.execute(email,contact);
+
+        Intent intent = new Intent(this,LocationActivity.class);
+        intent.putExtra("Email",email);
+        intent.putExtra("Contact",contact);
+        startActivity(intent);
+
+    }
+}
+
+
+/*
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+
     private static final int RESULT_LOAD_IMAGE=1;
-    private static final String SERVER_ADDRESS = "http://10.130.96.98/";
+    private static final String SERVER_ADDRESS = "http://192.168.0.6/";
     private String mImageFileLocation="";
     ImageView imageToUpload;
-    Button bUploadImage,btToTakePhoto;
+    Button bUploadImage,btToTakePhoto,btLocation;
     EditText uploadImageName;
 
     @Override
@@ -55,11 +74,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         bUploadImage = (Button)findViewById(R.id.bUploadImage);
         uploadImageName = (EditText)findViewById(R.id.etUploadName);
         btToTakePhoto = (Button)findViewById(R.id.bToTakePhoto);
+        btLocation = (Button)findViewById(R.id.btLocation);
 
 
         //imageToUpload.setOnClickListener(this);
         btToTakePhoto.setOnClickListener(this);
         bUploadImage.setOnClickListener(this);
+        btLocation.setOnClickListener(this);
 
 
     }
@@ -88,6 +109,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Bitmap image = ((BitmapDrawable) imageToUpload.getDrawable()).getBitmap();
                 new UploadImage(image,uploadImageName.getText().toString()).execute();
                 break;
+
+
+            case R.id.btLocation:
+                Intent i = new Intent(this,LocationActivity.class);
+                startActivity(i);
+                break;
+
         }
     }
 
@@ -120,13 +148,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             Bitmap rotatedBitmap = Bitmap.createBitmap(capturedImage,0,0,capturedImage.getWidth(),capturedImage.getHeight(),matrix,true);
             */
-            imageToUpload.setImageBitmap(capturedImage);
+
+            //imageToUpload.setImageBitmap(capturedImage);
 
 
-        }
+        //}
 
-    }
+    //}
 
+/*
     File createImageFile() throws IOException{
 
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
@@ -184,3 +214,4 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return httpRequestParams;
     }
 }
+*/
