@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 }
 
 
-/*
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     private static final int RESULT_LOAD_IMAGE=1;
@@ -156,7 +156,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     //}
 
-/*
+
     File createImageFile() throws IOException{
 
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
@@ -214,4 +214,3 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return httpRequestParams;
     }
 }
-*/
